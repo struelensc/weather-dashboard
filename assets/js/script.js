@@ -2,12 +2,14 @@ var APIKey = "&appid=e0f3fd1758eb9ee23eebdfd362d21c11";
 var cityInput = document.querySelector("#citySearch");
 var searchBtn = document.querySelector("#searchBtn");
 
+// On page load adds search handler and generates Seattle weather data
 window.addEventListener("load", function () {
   var cityName = "Seattle";
   var lat = 47.6038321;
   var lon = -122.3300624;
   var cityInfo = { cityName, lat, lon };
 
+  // Takes user city input
   searchBtn.addEventListener("click", function () {
     cityInfo.cityName = cityInput.value;
     getLatLon(cityInfo);
@@ -26,11 +28,19 @@ function getLatLon(cityInfo) {
       return response.json();
     })
     .then(function (data) {
-      cityInfo.lat = data[0].lat;
-      cityInfo.lon = data[0].lon;
+      console.log(data);
 
-      storeSearch(cityInfo);
-      getWeatherData(cityInfo);
+      if (!data[0]) {
+        alert("Please enter a valid city.");
+        cityInput.value = "";
+        return;
+      } else {
+        cityInfo.lat = data[0].lat;
+        cityInfo.lon = data[0].lon;
+
+        storeCitySearch(cityInfo);
+        getWeatherData(cityInfo);
+      }
     });
 }
 
@@ -47,7 +57,7 @@ function getWeatherData(cityInfo) {
     });
 }
 
-function storeSearch(cityInfo) {
+function storeCitySearch(cityInfo) {
   var searchHistory = [];
 
   if (!localStorage.getItem("searchHistory")) {

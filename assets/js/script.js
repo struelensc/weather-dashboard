@@ -2,14 +2,19 @@ var APIKey = "&appid=e0f3fd1758eb9ee23eebdfd362d21c11";
 var cityInput = document.querySelector("#citySearch");
 var searchBtn = document.querySelector("#searchBtn");
 
-searchBtn.addEventListener("click", function () {
-  var cityName;
-  var lat;
-  var lon;
+window.addEventListener("load", function () {
+  var cityName = "Seattle";
+  var lat = 47.6038321;
+  var lon = -122.3300624;
   var cityInfo = { cityName, lat, lon };
 
-  cityInfo.cityName = cityInput.value;
-  getLatLon(cityInfo);
+  searchBtn.addEventListener("click", function () {
+    cityInfo.cityName = cityInput.value;
+    getLatLon(cityInfo);
+  });
+
+  getWeatherData(cityInfo);
+  loadSearchList();
 });
 
 // Returns longitude and latitude from city input
@@ -75,17 +80,21 @@ function loadSearchList() {
   var existingHistory = localStorage.getItem("searchHistory");
   var searchHistory = JSON.parse(existingHistory);
 
-  for (let i = 0; i < searchHistory.length; i++) {
-    var listEl = document.createElement("li");
-    listEl.textContent = searchHistory[i].cityName;
-    listEl.setAttribute("data-lat", searchHistory[i].lat);
-    listEl.setAttribute("data-lon", searchHistory[i].lon);
+  if (!localStorage.getItem("searchHistory")) {
+    return;
+  } else {
+    for (let i = 0; i < searchHistory.length; i++) {
+      var listEl = document.createElement("li");
+      listEl.textContent = searchHistory[i].cityName;
+      listEl.setAttribute("data-lat", searchHistory[i].lat);
+      listEl.setAttribute("data-lon", searchHistory[i].lon);
 
-    listEl.addEventListener("click", function () {
-      getWeatherData(searchHistory[i]);
-    });
+      listEl.addEventListener("click", function () {
+        getWeatherData(searchHistory[i]);
+      });
 
-    searchList.appendChild(listEl);
+      searchList.appendChild(listEl);
+    }
   }
 }
 

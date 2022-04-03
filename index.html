@@ -30,14 +30,16 @@
         <aside id="searchSection" class="col-12 col-md-4 col-lg-3">
           <div class="d-flex flex-column">
             <h3>Search for a City:</h3>
-            <input type="text" id="citySearch" placeholder="Seattle" />
-            <button
-              type="button"
-              class="btn btn-primary btn-extend"
-              id="searchBtn"
-            >
-              Search
-            </button>
+            <form id="searchForm">
+              <input type="text" id="citySearch" placeholder="Seattle" />
+              <button
+                type="button"
+                class="btn btn-primary btn-extend"
+                id="searchBtn"
+              >
+                Search
+              </button>
+            </form>
             <!-- Search history -->
             <div id="historyContainer">
               <ul id="searchHistory"></ul>

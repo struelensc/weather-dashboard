@@ -31,11 +31,14 @@ img {
 
 input {
   padding: 10px;
+  min-width: 100%;
 }
 
 .btn-extend {
   margin: 1rem 0;
   background-color: var(--dark);
+  display: block;
+  min-width: 100%;
 }
 
 /* Search history */

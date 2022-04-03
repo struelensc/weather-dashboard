@@ -3,11 +3,12 @@ var cityInput = document.querySelector("#citySearch");
 
 // On page load adds search handler and generates Seattle weather data
 window.addEventListener("load", function () {
-  var searchBtn = document.querySelector("#searchBtn");
+  var search = document.querySelector("#searchForm");
   var cityInfo = { cityName: "Seattle", lat: 47.6038321, lon: -122.3300624 };
 
   // Sends user city input to getLatLon() to get latitude and longitude
-  searchBtn.addEventListener("click", function () {
+  search.addEventListener("submit", function (event) {
+    event.preventDefault();
     cityInfo.cityName = cityInput.value;
     getLatLon(cityInfo);
   });

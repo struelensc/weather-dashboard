@@ -1,0 +1,103 @@
+:root {
+  --dark: #313a7c;
+  --grey: #8b95ba;
+  --light: #aeb8d5;
+  --white: #f1f4fa;
+}
+
+main {
+  font-family: "Roboto", sans-serif;
+}
+
+header {
+  background: linear-gradient(to right, var(--dark) 0%, var(--light) 100%);
+  color: var(--white);
+  padding: 0.5rem;
+}
+
+p {
+  margin: 0.7rem 0;
+  font-size: 18px;
+}
+
+img {
+  max-width: 75px;
+}
+
+/* Search section */
+#searchSection {
+  padding: 2rem;
+}
+
+input {
+  padding: 10px;
+}
+
+.btn-extend {
+  margin: 1rem 0;
+  background-color: var(--dark);
+}
+
+/* Search history */
+#historyContainer {
+  border-top: solid var(--grey) 2px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  padding: 0.5rem;
+  margin: 1rem 0;
+  list-style: none;
+  cursor: pointer;
+  text-align: center;
+  font-size: large;
+  background-color: var(--grey);
+  border-radius: 5px;
+  color: var(--white);
+}
+
+li:hover {
+  background-color: var(--light);
+  transform: scale(1.03);
+}
+
+li:active {
+  transform: scale(0.98);
+}
+
+/* Current day info */
+#currentDayInfo {
+  margin: 1rem;
+  padding: 1rem 1.75rem;
+  border: solid var(--grey) 1px;
+  border-radius: 5px;
+}
+
+#currentDayHeader {
+  display: flex;
+  align-items: center;
+}
+
+#currentDayHeader h2,
+img {
+  display: inline;
+}
+
+#currentUv {
+  padding: 2px 15px;
+  border-radius: 5px;
+}
+
+/* 5-day forecast */
+.card {
+  background-color: var(--white);
+  margin-top: 1rem;
+}
+
+.card img {
+  background-color: var(--light);
+  border-radius: 7px;
+}

@@ -1,20 +1,18 @@
 var APIKey = "&appid=e0f3fd1758eb9ee23eebdfd362d21c11";
 var cityInput = document.querySelector("#citySearch");
-var searchBtn = document.querySelector("#searchBtn");
 
 // On page load adds search handler and generates Seattle weather data
 window.addEventListener("load", function () {
-  var cityName = "Seattle";
-  var lat = 47.6038321;
-  var lon = -122.3300624;
-  var cityInfo = { cityName, lat, lon };
+  var searchBtn = document.querySelector("#searchBtn");
+  var cityInfo = { cityName: "Seattle", lat: 47.6038321, lon: -122.3300624 };
 
-  // Takes user city input
+  // Sends user city input to getLatLon() to get latitude and longitude
   searchBtn.addEventListener("click", function () {
     cityInfo.cityName = cityInput.value;
     getLatLon(cityInfo);
   });
 
+  // Loads Seattle weather data as placeholder until user inputs city
   getWeatherData(cityInfo);
   loadSearchList();
 });
@@ -28,8 +26,7 @@ function getLatLon(cityInfo) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
-
+      // Checks to see if user's city input was valid
       if (!data[0]) {
         alert("Please enter a valid city.");
         cityInput.value = "";
@@ -38,25 +35,14 @@ function getLatLon(cityInfo) {
         cityInfo.lat = data[0].lat;
         cityInfo.lon = data[0].lon;
 
+        // Sends user's city input info to store in local storage and to display weather data on webpage
         storeCitySearch(cityInfo);
         getWeatherData(cityInfo);
       }
     });
 }
 
-// Fetches weather data from API
-function getWeatherData(cityInfo) {
-  var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&units=imperial${APIKey}`;
-
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      displayWeather(data, cityInfo.cityName);
-    });
-}
-
+// Stores user city input into local storage
 function storeCitySearch(cityInfo) {
   var searchHistory = [];
 
@@ -77,9 +63,11 @@ function storeCitySearch(cityInfo) {
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
   }
 
+  // Loads user's search history from local storage onto webpage
   loadSearchList();
 }
 
+// Generates users search history from local storage
 function loadSearchList() {
   var searchList = document.querySelector("#searchHistory");
 
@@ -108,7 +96,21 @@ function loadSearchList() {
   }
 }
 
-// Displays current weather data
+// Fetches weather data from API
+function getWeatherData(cityInfo) {
+  var url = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo.lat}&lon=${cityInfo.lon}&units=imperial${APIKey}`;
+
+  fetch(url)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // Sends weather data and city info to display on webpage
+      displayWeather(data, cityInfo.cityName);
+    });
+}
+
+// Displays current weather data on webpage
 function displayWeather(data, city) {
   var currentDayInfo = document.querySelector("#currentDayInfo");
   var today = requestDay(0);
@@ -132,7 +134,7 @@ function displayWeather(data, city) {
   displayForecast(data);
 }
 
-// Displays 5-day weather forecast
+// Displays 5-day weather forecast on webpage
 function displayForecast(data) {
   var weatherForecast = document.querySelector("#weatherForecast");
   var dayOne = weatherForecast.querySelector("#dayOne");

@@ -19,7 +19,7 @@ window.addEventListener("load", function () {
 
 // Returns longitude and latitude from city input
 function getLatLon(cityInfo) {
-  var url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityInfo.cityName}${APIKey}`;
+  var url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityInfo.cityName}${APIKey}`;
 
   fetch(url)
     .then(function (response) {
@@ -202,6 +202,6 @@ function requestDay(i) {
 
 // Returns weather icon src
 function requestIcon(icon) {
-  var url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+  var url = `https://openweathermap.org/img/wn/${icon}@2x.png`;
   return url;
 }

@@ -129,7 +129,22 @@ function displayWeather(data, city) {
   currentTemp.textContent = `Temp: ${data.current.temp}\xB0F`;
   currentWind.textContent = `Wind: ${data.current.wind_speed} MPH`;
   currentHumidity.textContent = `Humidity: ${data.current.humidity}%`;
-  currentUv.textContent = `UV Index: ${data.current.uvi}`;
+
+  var uv = data.current.uvi;
+  currentUv.textContent = uv;
+
+  // Changes background color according to current UV index
+  if (uv >= 0 && uv < 3) {
+    currentUv.style.backgroundColor = "#8ec641";
+  } else if (uv >= 3 && uv < 6) {
+    currentUv.style.backgroundColor = "#f9ee3a";
+  } else if (uv >= 6 && uv < 8) {
+    currentUv.style.backgroundColor = "#f89f29";
+  } else if (uv >= 8 && uv < 10.01) {
+    currentUv.style.backgroundColor = "#f15e28";
+  } else {
+    currentUv.style.backgroundColor = "#ed1e26";
+  }
 
   displayForecast(data);
 }
